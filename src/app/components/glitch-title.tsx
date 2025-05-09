@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 type GlitchLine = {
-  top: number; // agora é em pixels reais
+  top: number; 
   left: number;
   width: number;
 };
@@ -11,9 +11,11 @@ type GlitchLine = {
 interface GlitchTitleProps {
   text: string;
   fontSize?: string;
+  repeatDelay?: number;
+  duration?: number;
 }
 
-export default function GlitchTitle({ text, fontSize = "4rem" }: GlitchTitleProps) {
+export default function GlitchTitle({ text, fontSize = "4rem", repeatDelay = 2, duration = 0.4 }: GlitchTitleProps) {
   const [glitchLines, setGlitchLines] = useState<GlitchLine[]>([]);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
@@ -47,7 +49,6 @@ export default function GlitchTitle({ text, fontSize = "4rem" }: GlitchTitleProp
         ref={titleRef}
         className="vt220-text"
         style={{
-          color: "lime",
           fontSize,
           fontWeight: "bold",
           fontFamily: "VT323, monospace",
@@ -73,8 +74,8 @@ export default function GlitchTitle({ text, fontSize = "4rem" }: GlitchTitleProp
         }}
         transition={{
           repeat: Infinity,
-          repeatDelay: 2,
-          duration: 0.4,
+          repeatDelay: repeatDelay,
+          duration: duration,
           ease: "easeInOut",
         }}
       >

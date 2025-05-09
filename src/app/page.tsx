@@ -2,6 +2,7 @@
 import Hero from "./views/hero";
 import Sidebar from "./components/sidebar";
 import { useState } from "react";
+import GlitchedPanel from "./components/glitched-panel";
 
 
 
@@ -16,11 +17,11 @@ export default function Home() {
   }
 
   return (
-    <div className="crt-container">     
+    <GlitchedPanel >     
       <main  style={{ flex: 1 }}>
         {renderContent()}
       </main>
       <Sidebar active={currentPage} onSelect={setCurrentPage} />
-    </div>
+    </GlitchedPanel>
   )
 }

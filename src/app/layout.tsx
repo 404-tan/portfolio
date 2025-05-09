@@ -24,7 +24,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"/>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased crt-scanlines`}
       >
         {children}
       </body>

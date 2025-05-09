@@ -18,13 +18,47 @@
     --foreground: #ededed;
   }
 }
+.crt-mask {
+  -webkit-mask-image: repeating-linear-gradient(
+    to bottom,
+    black 0px,
+    black 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  -webkit-mask-repeat: repeat;
+  -webkit-mask-size: 100% 4px;
 
+  mask-image: repeating-linear-gradient(
+    to bottom,
+    black 0px,
+    black 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  mask-repeat: repeat;
+  mask-size: 100% 4px;
+}
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  /* Estilo monitor CRT */
 
+}
+.crt-scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0px,
+    rgba(0, 0, 0, 1) 2px,
+    transparent 2px,
+    transparent 4px
+  );
 }
 .crt-text {
   color: lime;
@@ -35,7 +69,29 @@ body {
   font-family: 'VT323', monospace;
   position: relative;
   z-index: 1;
+
+ 
 }
+
+
+
+@keyframes crtGlow {
+  0% {
+    text-shadow:
+      0 0 1px #105505,
+      0 0 2px #105505,
+      0 0 4px #105505;
+
+  }
+  100% {
+    text-shadow:
+      0 0 2px #105505,
+      0 0 4px #105505,
+      0 0 8px #105505;
+
+  }
+}
+
 
 @keyframes flicker {
   0%, 100% {
@@ -77,41 +133,23 @@ body {
   z-index: 0;
 }
 .crt-container {
-  border-radius: 16px;
-  box-shadow:
-    inset 0 0 100px rgba(0, 255, 0, 0.08),
-    0 0 40px rgba(0, 255, 0, 0.2);
-  filter: contrast(1.2) brightness(1.1);
-  border-radius: 20px;
-  box-shadow:
-    inset 0 0 60px rgba(0, 255, 0, 0.1),
-    inset 0 0 150px rgba(0, 255, 0, 0.15);
-  filter: contrast(1.2) brightness(1.1);
   background: #000;
   height: 100vh;
   display: flex;
   position: relative;
   overflow: hidden;
+  background-color: #01000a; /* base escura roxo-azulada */
+ 
+  font-family: 'VT323', monospace; /* ou outra fonte estilo terminal */
+  text-shadow: 0 0 1px #39ff14, 0 0 2px #39ff14;
 }
+
 .vt220-text {
   font-family: 'VT323', monospace;
   font-size: 2.5rem;
-  color: #00FF00;
+  color: #00B000;
   text-shadow:
-    0 0 5px #0f0,
-    0 0 10px #0f0;
-  mask-image: repeating-linear-gradient(
-    to bottom,
-    black 0px,
-    black 2px,
-    transparent 4px,
-    transparent 5px
-  );
-  -webkit-mask-image: repeating-linear-gradient(
-    to bottom,
-    black 0px,
-    black 2px,
-    transparent 4px,
-    transparent 5px
-  );
+    0 0 5px #00B000;
+  /* opcional: pulso de brilho */
+  animation: crtGlow ;
 }
