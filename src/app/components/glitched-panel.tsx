@@ -31,7 +31,7 @@ export default function GlitchedPanel({ children }: GlitchedPanelProps) {
 
       setGlitchLines(lines);
       setTimeout(() => setGlitchLines([]), 50);
-    }, 300); // menos agressivo
+    }, 300);
 
     return () => clearInterval(interval);
   }, []);

@@ -49,12 +49,7 @@ export default function GlitchTitle({ text, fontSize = "4rem", repeatDelay = 2, 
         ref={titleRef}
         className="vt220-text"
         style={{
-          fontSize,
-          fontWeight: "bold",
-          fontFamily: "VT323, monospace",
-          padding: "20px",
-          zIndex: 1,
-          position: "relative",
+          fontSize
         }}
         animate={{
           textShadow: [

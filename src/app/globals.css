@@ -10,7 +10,24 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Glitch Core Colors */
+  --glitch-green: #8CFF7A;
+  --glitch-cyan: #73FFFF;
+  --glitch-pink: #D471FF;
+  --glitch-purple: #A46CFF;
+  --glitch-hot-pink: #FF63D1;
+
+  /* Background & Neutral */
+  --deep-black: #000000;
+  --charcoal: #1B1B1B;
+  --gray-fuzz: #111111;
+  --glitch-white: #DADADA;
+
+  /* Noise Tones */
+  --muted-olive: #546C57;
+  --lavender-dark: #6A5D80;
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -43,7 +60,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-
+  filter: blur(0.6px);
 }
 .crt-scanlines::after {
   content: '';
@@ -55,10 +72,11 @@ body {
   background-image: repeating-linear-gradient(
     to bottom,
     rgba(0, 0, 0, 1) 0px,
-    rgba(0, 0, 0, 1) 2px,
+    rgba(0, 0, 0, 1) 1px,
     transparent 2px,
     transparent 4px
   );
+
 }
 .crt-text {
   color: lime;
@@ -110,8 +128,8 @@ body {
   background-image: repeating-linear-gradient(
     to bottom,
     rgba(0, 255, 0, 0.07) 0px,
-    rgba(0, 255, 0, 0.07) 1px,
-    transparent 1px,
+    rgba(0, 255, 0, 0.07) 2px,
+    transparent 2px,
     transparent 4px
   );
   mix-blend-mode: screen;
@@ -148,8 +166,8 @@ body {
   font-family: 'VT323', monospace;
   font-size: 2.5rem;
   color: #00B000;
-  text-shadow:
-    0 0 5px #00B000;
+  font-weight: bold;
+
   /* opcional: pulso de brilho */
   animation: crtGlow ;
 }

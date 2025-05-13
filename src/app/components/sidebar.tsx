@@ -4,7 +4,9 @@ import React from 'react'
 
 export default function Sidebar({ active, onSelect }) {
   const items = [
-    { id: 'inicio', label: 'Início' }
+    { id: 'inicio', label: 'Início' },
+    { id: 'projetos', label: 'Projetos' },
+    { id: 'about', label: 'Sobre Mim' }
   ]
 
   return (
@@ -20,7 +22,7 @@ export default function Sidebar({ active, onSelect }) {
                 color: '#0f0',
                 fontWeight: item.id === active ? 'bold' : 'normal',
                 fontFamily: 'VT323, monospace',
-                fontSize: '20px',
+                fontSize: '2rem',
                 padding: '10px 0',
                 width: '100%',
                 textAlign: 'left',

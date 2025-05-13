@@ -2,9 +2,10 @@ import GlitchTitle from "../components/glitch-title";
 
 export default function Hero(){
     return (
-        <div style={{display: "flex",alignItems: "center",justifyContent: "center"}}>
+        <div style={{display: "flex",flexDirection:"column",alignItems: "center",justifyContent: "center",minHeight:"100%"}}>
             
-            <GlitchTitle text="MARTAN MARTINS"></GlitchTitle>
+            <GlitchTitle text="NOT FOUND" fontSize="3rem"></GlitchTitle>
+            <GlitchTitle text="TAN" fontSize="4.5rem" ></GlitchTitle>
 
         </div>
     )
