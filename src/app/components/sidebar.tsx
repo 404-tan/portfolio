@@ -16,17 +16,15 @@ export default function Sidebar({ active, onSelect }) {
           <li key={item.id}>
             <button
               onClick={() => onSelect(item.id)}
+              className="vt220-text"
               style={{
-                background: 'none',
-                border: 'none',
-                color: '#0f0',
+
                 fontWeight: item.id === active ? 'bold' : 'normal',
                 fontFamily: 'VT323, monospace',
                 fontSize: '2rem',
-                padding: '10px 0',
+
                 width: '100%',
-                textAlign: 'left',
-                cursor: 'pointer',
+
               }}
             >
              {item.label}

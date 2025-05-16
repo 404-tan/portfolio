@@ -11,17 +11,27 @@ export default function TypingText({ text, delay = 50, onDone }: TypingTextProps
 
   useEffect(() => {
     let i = 0;
-    const interval = setInterval(() => {
-      setDisplayed((prev) => prev + text[i]);
+    let cancelled = false;
+
+    const typeNext = () => {
+      if (cancelled || i >= text.length) {
+        if (!cancelled) onDone?.();
+        return;
+      }
+
+      const nextChar = text.charAt(i);
+      setDisplayed((prev) => prev + nextChar);
       i++;
 
-      if (i >= text.length) {
-        clearInterval(interval);
-        if (onDone) onDone();
-      }
-    }, delay);
+      setTimeout(typeNext, delay);
+    };
 
-    return () => clearInterval(interval);
+    setDisplayed(''); // Reset ao iniciar
+    typeNext();
+
+    return () => {
+      cancelled = true;
+    };
   }, [text, delay, onDone]);
 
   return <span>{displayed}</span>;

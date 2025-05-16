@@ -1,11 +1,16 @@
 import TypingText from "./typing-text";
+interface comando {
+  input: string;
+  output?: string;
+}
 
-export default function TerminalLine({ user, machine, comando }: { user: string; machine: string; comando: Comando }) {
+
+export default function TerminalLine({ user, machine, comando }: { user: string; machine: string; comando: comando }) {
   return (
-    <div>
+    <div  className="vt220-text">
       <span>{user}@{machine}:~$ <TypingText text={comando.input} /></span>
-      {comando.output && (
-        <div><TypingText text={comando.output} /></div>
+      {comando.output != undefined && (
+        <div>{ comando.output}</div>
       )}
     </div>
   );

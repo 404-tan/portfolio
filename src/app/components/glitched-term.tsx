@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import TerminalLine from './terminal-line';
 
 interface comando {
   input: string;
@@ -24,39 +25,15 @@ export default function GlitchedTerm({
   repeatDelay = 1500,
 }: GlitchedTermProps) {
 
-  // array de comandos que será atualizado e exibido
-  const [linhasTerminal,setLinhasTerminal] = useState<string[]>([]);
   
-  // Controle dos comandos que serão executados
-  const [indexComando, setIndexComando] = useState(0);
-
-  // ✅ Flag para impedir duplicação de execução no mesmo índice
-  const jaExecutou = useRef<Set<number>>(new Set());
-
-  useEffect(() => {
-    const bash = `${user}@${machine}:~$`;
-    if (indexComando >= comandos.length) return;
-
-    if (!jaExecutou.current.has(indexComando)) {
-      const linha = `${bash} ${comandos[indexComando].input}`;
-      setLinhasTerminal((prev) => [...prev, linha]);
-      jaExecutou.current.add(indexComando);
-    }
-
-    // Avança para o próximo comando após mostrar o resultado
-    const timeout = setTimeout(() => {
-      const inputIsClear = comandos[indexComando].input === 'clear';
-      if(inputIsClear) setLinhasTerminal(()=> []);
-      if(comandos[indexComando].output) setLinhasTerminal((prev) => [...prev, comandos[indexComando].output!]);
-
-      setIndexComando((prev) => prev + 1);
-    }, repeatDelay);
-    return () => clearTimeout(timeout); 
-  },[indexComando]);
 
   return (
-    <pre>
-      {linhasTerminal.join('\n')}
-    </pre> 
+    <div>
+      {comandos.map((comando, index) => (
+        <div key={index}>
+          <TerminalLine comando={comando} user={user} machine={machine} />
+        </div>
+      ))}
+    </div>
   );
 }
