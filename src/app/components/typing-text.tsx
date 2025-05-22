@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 
 interface TypingTextProps {
   text: string;
+  done: boolean;
   delay?: number;
   onDone?: () => void;
 }
 
-export default function TypingText({ text, delay = 50, onDone }: TypingTextProps) {
+export default function TypingText({ text, delay = 50, onDone,done }: TypingTextProps) {
   const [displayed, setDisplayed] = useState('');
 
   useEffect(() => {
@@ -16,6 +17,7 @@ export default function TypingText({ text, delay = 50, onDone }: TypingTextProps
     const typeNext = () => {
       if (cancelled || i >= text.length) {
         if (!cancelled) onDone?.();
+        
         return;
       }
 
@@ -25,9 +27,11 @@ export default function TypingText({ text, delay = 50, onDone }: TypingTextProps
 
       setTimeout(typeNext, delay);
     };
+    if(done === false){
+      setDisplayed(''); 
+      typeNext();
+    }
 
-    setDisplayed(''); // Reset ao iniciar
-    typeNext();
 
     return () => {
       cancelled = true;
