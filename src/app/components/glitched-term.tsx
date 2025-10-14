@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import TerminalLine from './terminal-line';
+import { useTerminalStore } from '../../store/useTerminalStore';
+
 
 interface comando {
   input: string;
@@ -11,50 +13,48 @@ interface GlitchedTermProps {
   user: string;
   machine: string;
   comandos: comando[];
+  onDone?: () => void;
   fontSize?: string;
   repeatDelay?: number;
-  duration?: number;
 }
 
 export default function GlitchedTerm({
   user,
   machine,
   comandos,
+  onDone,
   fontSize = '1.2rem',
-  repeatDelay = 700,
+  repeatDelay = 300
 }: GlitchedTermProps) {
-  const [comandosExecutados, setComandosExecutados] = useState<comando[]>([]);
+  const { comandosExecutados, setComandos, executarProximo, currentIndex, doneCalled, setDoneCalled } = useTerminalStore();
+  const numeroComandos =comandos.length;
 
-  // Começa com o primeiro comando
   useEffect(() => {
-    if (comandos.length > 0) {
-      setComandosExecutados([comandos[0]]);
-    }
+    setComandos(comandos);
+    setDoneCalled(false);
   }, [comandos]);
 
-  const handleDone = () => {
-    setTimeout(() => {
-      setComandosExecutados((prev) => {
-
-        const nextIndex = prev.length;
-        if (nextIndex < comandos.length) {
-          if(comandos[nextIndex-1].input.trim().toLowerCase() === 'clear') return [comandos[nextIndex]]
-          return [...prev, comandos[nextIndex]]; 
-        }
-        return prev;
-      });
-    }, repeatDelay);
-  };
+  useEffect(() => {
+    if (
+      numeroComandos === currentIndex &&
+      !doneCalled &&
+      currentIndex !== 0
+    ) {
+      setDoneCalled(true);
+      onDone?.();
+    }
+  }, [currentIndex, comandos.length, onDone, doneCalled, setDoneCalled]);
 
   return (
-    <div>
+    <div style={{ fontSize }}>
       {comandosExecutados.map((comando, index) => (
         <div key={index}>
           <TerminalLine
             comando={comando}
             user={user}
             machine={machine}
-            onDone={handleDone}
+            index={index}
+            onDone={() => executarProximo(repeatDelay)}
           />
         </div>
       ))}

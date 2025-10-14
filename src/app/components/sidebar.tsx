@@ -2,7 +2,12 @@
 import React from 'react'
 
 
-export default function Sidebar({ active, onSelect }) {
+interface SidebarProps {
+  active: string;
+  onSelect: (id: string) => void;
+}
+
+export default function Sidebar({ active, onSelect }: SidebarProps) {
   const items = [
     { id: 'inicio', label: 'Início' },
     { id: 'projetos', label: 'Projetos' },

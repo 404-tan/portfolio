@@ -1,28 +1,36 @@
+'use client';
 import { useEffect, useState } from "react";
 import TypingText from "./typing-text";
+import { useTerminalOutputStore } from "../../store/useTerminalOutputStore";
 
 interface comando {
   input: string;
   output?: string;
 }
 
+interface TerminalLineProps {
+  user: string;
+  machine: string;
+  comando: comando;
+  index: number; 
+  onDone?: () => void;
+}
+
 export default function TerminalLine({
   user,
   machine,
   comando,
+  index,
   onDone,
-}: {
-  user: string;
-  machine: string;
-  comando: comando;
-  onDone?: () => void;
-}) {
-  const [mostrarOutput, setMostrarOutput] = useState(false);
+}: TerminalLineProps) {
+  const { showOutputMap, setOutputVisible } = useTerminalOutputStore();
+  const mostrarOutput = showOutputMap[index] ?? false;
+
   const [done, setDone] = useState(false);
+
   useEffect(() => {
     if (mostrarOutput && onDone) {
-      // chama o onDone só depois de mostrar o output
-      const timer = setTimeout(() => onDone(), 200); // pequeno delay opcional
+      const timer = setTimeout(() => onDone(), 200);
       return () => clearTimeout(timer);
     }
   }, [mostrarOutput, onDone]);
@@ -36,11 +44,11 @@ export default function TerminalLine({
           done={done}
           onDone={() => {
             if (comando.output !== undefined) {
-              setMostrarOutput(true);
-            } else {
-              if (onDone) onDone(); // se não tiver output, pode chamar direto
+              setOutputVisible(index, true);
+            } else if (onDone) {
+              onDone();
             }
-            setDone(true)
+            setDone(true);
           }}
         />
       </span>

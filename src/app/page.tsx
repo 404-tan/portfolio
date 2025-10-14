@@ -4,6 +4,7 @@ import Sidebar from "./components/sidebar";
 import { useState } from "react";
 import GlitchedPanel from "./components/glitched-panel";
 import About from "./views/about";
+import Projects from "@/app/views/projects";
 
 
 
@@ -14,6 +15,7 @@ export default function Home() {
     switch (currentPage) {
       case 'inicio': return <Hero />
       case 'about': return <About />
+      case 'projetos': return <Projects/>
       default: return <Hero />
     }
   }
@@ -25,5 +27,6 @@ export default function Home() {
       </main>
       <Sidebar active={currentPage} onSelect={setCurrentPage} />
     </GlitchedPanel>
+
   )
 }

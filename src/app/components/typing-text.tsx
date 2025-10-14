@@ -16,7 +16,7 @@ export default function TypingText({ text, delay = 50, onDone,done }: TypingText
 
     const typeNext = () => {
       if (cancelled || i >= text.length) {
-        if (!cancelled) onDone?.();
+        if (!cancelled && onDone !== undefined) setTimeout(onDone!,delay*2);
         
         return;
       }

@@ -15,7 +15,7 @@ interface GlitchedPanelProps {
 
 export default function GlitchedPanel({ children }: GlitchedPanelProps) {
   const [glitchLines, setGlitchLines] = useState<GlitchLine[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null); // ref no container
+  const containerRef = useRef<HTMLDivElement>(null); 
 
   useEffect(() => {
     const interval = setInterval(() => {
